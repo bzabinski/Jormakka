@@ -1,5 +1,4 @@
 from torus import torus
-from rossler_config import *
 
 import sys
 from math import *

@@ -1,5 +1,4 @@
 from torus import torus
-from rossler_config import *
 
 import sys
 from math import *
@@ -10,32 +9,16 @@ from mpl_toolkits.mplot3d import Axes3D
 from numpy import *
 import matplotlib.pyplot as plt
 
-#starting dot
-def myCalculate(x1, y1, z1):
-    x = x1
-    y = y1
-    z = z1
-    tStep = 0.1
-    size = 1.0
+def lyapCalc(self, marker1, marker2):
+    self._x1, self._y1, self._z1 = marker1.getPos()
+    self._x2, self._y2, self._z2 = marker2.getPos()
+    self._d0 = sqrt(pow(orbit1[0][0] - orbit2[0][0], 2) + pow(orbit1[0][1] - orbit2[0][1], 2) + pow(orbit1[0][2] - orbit2[0][2]), 2)
+    self._lyapexps = []
+    for itr in range(len(orbit1) - 2):
+        self._d1 = sqrt(pow(orbit1[itr + 1][0] - orbit2[itr + 1][0], 2) + pow(orbit1[itr + 1][1] - orbit2[itr + 1][1], 2) + pow(orbit1[itr + 1][2] - orbit2[itr + 1][2]), 2)
+        self.lyap[itr]= log2(abs(self._d1/self._d0))
 
-    myTorus = torus(size)
-    myTorus.setMarker(x, y, z)
 
-    for t in range(int(sys.argv[1])):
-        vX = dx(x, y, z)
-        vY = dy(x, y, z)
-        vZ = dz(x, y, z)
-        print(vX, vY, vZ)
-        x += (vX * tStep)
-        y += (vY * tStep)
-        z += (vZ * tStep)
-
-        x = round(x, 9)
-        y = round(y, 9)
-        z = round(z, 9)
-
-        myTorus.setMarker(x, y, z)
-        x, y, z = myTorus.getMarker()
     return myTorus.getPath()
 
 fig = plt.figure()
