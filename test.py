@@ -1,5 +1,6 @@
 from torus import torus
 from rossler_config import *
+from lyapexp import lyapCalc
 
 import sys
 from math import *
@@ -11,42 +12,58 @@ from numpy import *
 import matplotlib.pyplot as plt
 
 #starting dot
-def myCalculate(x1, y1, z1):
-    x = x1
-    y = y1
-    z = z1
+def myCalculate(x1, y1, z1, x2, y2, z2):
     tStep = 0.1
     size = 1.0
 
     myTorus = torus(size)
-    myTorus.setMarker(x, y, z)
+    myTorus.setAMarker(x1, y1, z1)
+    myTorus.setBMarker(x2, y2, z2)
 
     for t in range(int(sys.argv[1])):
-        vX = dx(x, y, z)
-        vY = dy(x, y, z)
-        vZ = dz(x, y, z)
-        print(vX, vY, vZ)
-        x += (vX * tStep)
-        y += (vY * tStep)
-        z += (vZ * tStep)
+        vXa = dx(x1, y1, z1)
+        vYa = dy(x1, y1, z1)
+        vZa = dz(x1, y1, z1)
+        vXb = dx(x2, y2, z2)
+        vYb = dy(x2, y2, z2)
+        vZb = dz(x2, y2, z2)
 
-        x = round(x, 9)
-        y = round(y, 9)
-        z = round(z, 9)
+        x1 += (vX1 * tStep)
+        y1 += (vY1 * tStep)
+        z1 += (vZ1 * tStep)
+        x2 += (vX2 * tStep)
+        y2 += (vY2 * tStep)
+        z2 += (vZ2 * tStep)
 
-        myTorus.setMarker(x, y, z)
-        x, y, z = myTorus.getMarker()
-    return myTorus.getPath()
+        x1 = round(x1, 9)
+        y1 = round(y1, 9)
+        z1 = round(z1, 9)
+        x2 = round(x2, 9)
+        y2 = round(y2, 9)
+        z2 = round(z2, 9)
 
+        d00 = myTorus.getAMarker()
+        d01 = myTorus.getBMarker()
+        d10 = [x1, y1, z1]
+        d11 = [x2, y2, z2]
+        adjustA, adjustB, adjustC, lyap = lyapCalc(d00, d01, d10, d11)
+
+        myTorus.setAMarker(x1, y1, z1)
+        myTorus.setBMarker(adjustA, adjustB, adjustC)
+    return myTorus.getAPath(), myTorus.getBPath()
+
+startX = 0.1
+startY = 0.1
+startZ = 0.5
+change = 0.00000001
 fig = plt.figure()
 #ax = p3.Axes3D(fig)
 ax = fig.gca(projection='3d')
-pathX1, pathY1, pathZ1 = myCalculate(0.1, 0.1, 0.5)
-pathX2, pathY2, pathZ2 = myCalculate(0.10000001, 0.1, 0.5)
+pathX1, pathY1, pathZ1, pathX2, pathY2, pathZ2 = myCalculate(startX, startY, startZ, startX + change, startY, startZ )
 #ax.plot(pathX, pathY, pathZ, label='Rossler')
 plt.rc('axes', color_cycle=['r', 'g', 'b', 'y'])
-ax.plot(pathX1, pathY1, pathZ1, label='asdf')
-ax.plot(pathX2, pathY2, pathZ2, label='thing')
+ax.scatter(pathX1, pathY1, pathZ1, label='asdf')
+ax.scatter(pathX2, pathY2, pathZ2, label='thing')
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
