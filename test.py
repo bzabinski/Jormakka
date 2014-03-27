@@ -28,12 +28,12 @@ def myCalculate(x1, y1, z1, x2, y2, z2):
         vYb = dy(x2, y2, z2)
         vZb = dz(x2, y2, z2)
 
-        x1 += (vX1 * tStep)
-        y1 += (vY1 * tStep)
-        z1 += (vZ1 * tStep)
-        x2 += (vX2 * tStep)
-        y2 += (vY2 * tStep)
-        z2 += (vZ2 * tStep)
+        x1 += (vXa * tStep)
+        y1 += (vYa * tStep)
+        z1 += (vZa * tStep)
+        x2 += (vXb * tStep)
+        y2 += (vYb * tStep)
+        z2 += (vZb * tStep)
 
         x1 = round(x1, 9)
         y1 = round(y1, 9)
