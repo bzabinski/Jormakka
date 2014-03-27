@@ -2,8 +2,7 @@ from space import space
 from config import *
 
 import sys
-from math import ceil
-from math import fmod
+from math import *
 import matplotlib as mpl
 mpl.use('qt4agg')
 from mpl_toolkits.mplot3d import Axes3D
@@ -12,11 +11,11 @@ from numpy import *
 import matplotlib.pyplot as plt
 
 #starting dot
-x = 5.4301
-y = 0.432
-z = 2.341
-size = 10
-tStep = 0.1
+x = 0.2
+y = 0.2
+z = 5.7
+size = 1
+tStep = 0.01
 
 pathX = [x]
 pathY = [y]
@@ -51,7 +50,7 @@ for t in range(int(sys.argv[1])):
     y = round(y, 9)
     z = round(z, 9)
 
-
+"""
     if(x > 0):
         x = fmod(x, size)
     else:
@@ -67,16 +66,16 @@ for t in range(int(sys.argv[1])):
     else:
         z = fmod(z, size)
         z = size + z
+ """
     #if(mod(t, (int(sys.argv[1]) / 1000)) == 0):
     pathX.append(x)
     pathY.append(y)
     pathZ.append(z)
 
     print([x, y, z])
-
+"""
 c = 2
 a = 1
-"""
 u = r_[0:pi:1000j]
 v = r_[0:pi:1000j]
 #ux, vx = meshgrid(u,v)
