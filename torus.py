@@ -1,4 +1,4 @@
-#from math import fmod
+from math import fmod
 from space import space
 
 class torus:
@@ -7,10 +7,10 @@ class torus:
         self._cube = space(side)
     def setAMarker(self, a, b, c):
         #self._cube.setMarker(fmod(a, self._side), fmod(b, self._side), fmod(c, self._side))
-        self._cube.setAMarker(a % self._side, b % self._side, c % self._side)
+        self._cube.setAMarker(fmod(a, self._side), fmod(b, self._side), fmod(c, self._side))
     def setBMarker(self, a, b, c):
         #self._cube.setMarker(fmod(a, self._side), fmod(b, self._side), fmod(c, self._side))
-        self._cube.setBMarker(a % self._side, b % self._side, c % self._side)
+        self._cube.setBMarker(fmod(a, self._side), fmod(b, self._side), fmod(c, self._side))
     def getAMarker(self):
         return self._cube.getAMarker()
     def getAPath(self):
