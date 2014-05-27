@@ -13,11 +13,8 @@ import matplotlib.pyplot as plt
 
 #starting dot
 def myCalculate(x1, y1, z1, x2, y2, z2):
-    tStep = 0.01
+    tStep = 0.00001
     size = 100.0
-    myTorus = torus(size, x1, y1, z1, x2, y2, z2)
-    myTorus.setAMarker(x1, y1, z1)
-    myTorus.setBMarker(x2, y2, z2)
     for t in range(100000):
         vXa = dx(x1, y1, z1)
         vYa = dy(x1, y1, z1)
@@ -31,11 +28,16 @@ def myCalculate(x1, y1, z1, x2, y2, z2):
         y1 = round(y1, 9)
         z1 = round(z1, 9)
     
-    x2 = x1 + 0.00001
+    x2 = x1 + 0.00000001
     y2 = y1
     z2 = z1
-    print(x2, y2, z2)
+
+    myTorus = torus(size, x1, y1, z1, x2, y2, z2)
+    myTorus.setAMarker(x1, y1, z1)
+    myTorus.setBMarker(x2, y2, z2)
+
     for t in range(int(sys.argv[1])):
+
         vXa = dx(x1, y1, z1)
         vYa = dy(x1, y1, z1)
         vZa = dz(x1, y1, z1)
@@ -69,7 +71,6 @@ def myCalculate(x1, y1, z1, x2, y2, z2):
     print("lyap", lyap)
     px1, py1, pz1 = myTorus.getAPath()
     px2, py2, pz2 = myTorus.getBPath()
-    print(px2)
     return px1, py1, pz1, px2, py2, pz2
 
 startX = -5
@@ -81,11 +82,11 @@ fig = plt.figure()
 ax = fig.gca(projection='3d')
 pathX1, pathY1, pathZ1, pathX2, pathY2, pathZ2 = myCalculate(startX, startY, startZ, startX + change, startY, startZ )
 #ax.plot(pathX, pathY, pathZ, label='Rossler')
-plt.rc('axes', color_cycle=['r', 'g', 'b', 'y'])
-ax.plot(pathX1, pathY1, pathZ1, 'r')
-ax.plot(pathX2, pathY2, pathZ2, 'g')
+#plt.rc('axes', color_cycle=['r', 'g', 'b', 'y'])
+#ax.plot(pathX1, pathY1, pathZ1, 'r')
+#ax.plot(pathX2, pathY2, pathZ2, 'g')
 #ax.plot(pathX2, pathY2, pathZ2, label='thing')
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-plt.show()
+#ax.set_xlabel('X')
+#ax.set_ylabel('Y')
+#ax.set_zlabel('Z')
+##plt.show()
