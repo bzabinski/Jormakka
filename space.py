@@ -1,9 +1,9 @@
 from marker import marker
 
 class space:
-    def __init__(self, side):
-        self._currentAMarker = marker()
-        self._currentBMarker = marker()
+    def __init__(self, side, a, b, c, d, e, f):
+        self._currentAMarker = marker(a, b, c)
+        self._currentBMarker = marker(d, e, f)
         """
         self._cube = [[[0 for k in range(side)] for j in range(side)] for i in range(side)]
         for a in range(0, side):
@@ -30,4 +30,4 @@ class space:
     def getAPath(self):
         return self._currentAMarker.getPath()
     def getBPath(self):
-        return self._currentAMarker.getPath()
+        return self._currentBMarker.getPath()

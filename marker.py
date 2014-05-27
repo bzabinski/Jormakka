@@ -1,14 +1,14 @@
 from numpy import array
 
 class marker:
-    def __init__(self):
-        self._currentX = -1
-        self._currentY = -1
-        self._currentZ = -1
+    def __init__(self, x, y, z):
+        self._currentX = x
+        self._currentY = y
+        self._currentZ = z
 
-        self._pathX = []
-        self._pathY = []
-        self._pathZ = []
+        self._pathX = [x]
+        self._pathY = [y]
+        self._pathZ = [z]
     def getPos(self):
         return self._currentX, self._currentY, self._currentZ
 
