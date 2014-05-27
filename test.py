@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 #starting dot
 def myCalculate(x1, y1, z1, x2, y2, z2):
-    tStep = 0.00001
+    tStep = 0.001
     size = 100.0
     for t in range(100000):
         vXa = dx(x1, y1, z1)
@@ -28,14 +28,14 @@ def myCalculate(x1, y1, z1, x2, y2, z2):
         y1 = round(y1, 9)
         z1 = round(z1, 9)
     
-    x2 = x1 + 0.00000001
+    x2 = x1 + pow(10, -8)
     y2 = y1
     z2 = z1
 
     myTorus = torus(size, x1, y1, z1, x2, y2, z2)
     myTorus.setAMarker(x1, y1, z1)
     myTorus.setBMarker(x2, y2, z2)
-
+    lyapSum = 0
     for t in range(int(sys.argv[1])):
 
         vXa = dx(x1, y1, z1)
@@ -64,17 +64,18 @@ def myCalculate(x1, y1, z1, x2, y2, z2):
         d10 = [x1, y1, z1]
         d11 = [x2, y2, z2]
         adjustA, adjustB, adjustC, lyap = lyapCalc(d00, d01, d10, d11)
-
+        if t > 2000:
+            lyapSum = lyapSum + lyap
         myTorus.setAMarker(x1, y1, z1)
         myTorus.setBMarker(adjustA, adjustB, adjustC)
         #myTorus.setBMarker(x2, y2, z2)
-    print("lyap", lyap)
+    print("lyap", (lyapSum / (int(sys.argv[1]) - 2000)) / tStep)
     px1, py1, pz1 = myTorus.getAPath()
     px2, py2, pz2 = myTorus.getBPath()
     return px1, py1, pz1, px2, py2, pz2
 
-startX = -5
-startY = 0
+startX = 1
+startY = 1
 startZ = 0
 change = 0.0001
 fig = plt.figure()
